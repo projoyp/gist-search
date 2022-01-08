@@ -36,6 +36,7 @@ import {
     };
     useEffect(()=>{
       dispatch(fetchForksAsync(gistId));
+      // eslint-disable-next-line react-hooks/exhaustive-deps
     },[open,dispatch]);
     if(errors){
       return(<NoRecords message={errors}/>);

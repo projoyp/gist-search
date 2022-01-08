@@ -92,6 +92,7 @@ export default function Gist(props) {
    } else {
     dispatch(searchGistsAsync([gists[0].owner.login, currentPage]));
    }
+   // eslint-disable-next-line react-hooks/exhaustive-deps
   },[currentPage,dispatch])  
 
   if(apiStatus === 'loading-gists')
