@@ -43,86 +43,86 @@ function GistChild(props) {
   return (
     <React.Fragment>
       <Card sx={{ minWidth:isBrowser ? 750 : 250, maxWidth: 750, marginBottom: 1}} >
-      <CardHeader
-                  avatar={
-                    <Avatar alt={row.owner.login.slice(0,1)} src={row.owner.avatar_url}  />
-                  }
-                  action={
-                    <Stack direction="row" spacing={2}>
-                    <Link component="button" underline="none" onClick={() => setOpenFileList(!openFileList)}>
-                      <Stack direction="row" spacing={1}>
-                      <Typography sx={{ fontSize: 10 }} color="text.secondary">
-                      {row.comments} 
-                      </Typography>
-                      <Typography sx={{ fontSize: 10 }} color="text.secondary">
-                        <CommentIcon size={16} />
-                      </Typography>
-                      <Typography sx={{ fontSize: 10 }} color="text.secondary">
-                        Comments
-                      </Typography>
-                      </Stack>
-                    </Link>
-                    <Link component="button" underline="none" onClick={() => setOpenFileList(!openFileList)}>
-                      <Stack direction="row" spacing={1}>
-                      {/* <Badge badgeContent={languages.length} style={{fontSize:"3"}} showZero color="primary" anchorOrigin={{
-                          vertical: 'top',
-                          horizontal: 'left',
-                        }}>
-                        <FileCodeIcon size={16} />
-                      </Badge> */}
-                      <Typography sx={{ fontSize: 10 }} color="text.secondary">
-                      {languages.length}
-                      </Typography>
-                      <Typography sx={{ fontSize: 10 }} color="text.secondary">
-                      <FileCodeIcon size={16} />
-                      </Typography>
-                        <Typography sx={{ fontSize: 10 }} color="text.secondary">
-                        Files
-                      </Typography>
-                      </Stack>
-                    </Link>
-                    <Link component="button" underline="none" onClick={() => setOpenForks(!openFileList)}>
-                      <Stack direction="row">
-                      <RepoForkedIcon size={16} />
-                        <Typography sx={{ fontSize: 10 }} color="text.secondary">
-                          Forks
-                      </Typography>
-                      </Stack>
-                    </Link>
-                    {/* <IconButton
-                      value={row.id}
-                      aria-label="expand row"
-                      size="small"
-                      onClick={() => setOpenForks(!openForks)}
-                    >
-                      <RepoForkedIcon size={24} />
-                      <Typography sx={{ fontSize: 10 }} color="text.secondary">
-                        Forks
-                      </Typography>
-                    </IconButton> */}
-                    </Stack>
+        <CardHeader
+          avatar={
+            <Link href={row.owner.html_url}>
+              <Avatar alt={row.owner.login.slice(0,1)} src={row.owner.avatar_url}  />
+            </Link>
+          }
+          action={
+            <Stack direction="row" spacing={2}>
+              <Link component="button" underline="none" onClick={() => setOpenFileList(!openFileList)}>
+                <Stack direction="row" spacing={1}>
+                <Typography sx={{ fontSize: 10 }} color="text.secondary">
+                {row.comments} 
+                </Typography>
+                <Typography sx={{ fontSize: 10 }} color="text.secondary">
+                  <CommentIcon size={16} />
+                </Typography>
+                {
+                  isBrowser && 
+                  <Typography sx={{ fontSize: 10 }} color="text.secondary">
+                  Comments
+                  </Typography>
+                }
+                </Stack>
+              </Link>
+              <Link component="button" underline="none" onClick={() => setOpenFileList(!openFileList)}>
+                <Stack direction="row" spacing={1}>
+                <Typography sx={{ fontSize: 10 }} color="text.secondary">
+                {languages.length}
+                </Typography>
+                <Typography sx={{ fontSize: 10 }} color="text.secondary">
+                <FileCodeIcon size={16} />
+                </Typography>
+                {
+                  isBrowser && 
+                  <Typography sx={{ fontSize: 10 }} color="text.secondary">
+                  Files
+                  </Typography>
+                }
+                </Stack>
+              </Link>
+              <Link component="button" underline="none" onClick={() => setOpenForks(!openFileList)}>
+                <Stack direction="row">
+                <RepoForkedIcon size={16} />
+                {
+                  isBrowser && 
+                  <Typography sx={{ fontSize: 10 }} color="text.secondary">
+                  Forks
+                  </Typography>
+                }
+                </Stack>
+              </Link>
+              </Stack>
                     
-                  }
-                  title={row.owner.login}
-                  subheader={
-                    (
-                      <Stack direction= "row" spacing={1}>
-                        <Typography sx={{ fontSize: 10 }} color="text.secondary" gutterBottom>
-                          Created:
-                        </Typography>
-                        <Typography sx={{ fontSize: 10 }} color="text.secondary">
-                          {createdDate.toDateString()}
-                        </Typography>
-                        <Typography sx={{ fontSize: 10 }} color="text.secondary">
-                          Last updated:
-                        </Typography>
-                        <Typography sx={{ fontSize: 10 }} color="text.secondary">
-                          {updatedDate.toDateString()}
-                        </Typography>
-                      </Stack>
-                    )
-                  }
-                /> 
+            }
+            title={row.owner.login}
+            subheader={
+              (
+                <Stack direction= {"row" } spacing={1}>
+                  <Stack direction= { isBrowser ? "row" : "column" }>
+                  <Typography sx={{ fontSize: 10 }} color="text.secondary" gutterBottom>
+                    Created:
+                  </Typography>
+                  <Typography sx={{ fontSize: 10 }} color="text.secondary">
+                    {createdDate.toDateString()}
+                  </Typography>
+                  </Stack>
+                  <Stack direction= { isBrowser ? "row" : "column" }>
+                  <Typography sx={{ fontSize: 10 }} color="text.secondary">
+                    Last updated:
+                  </Typography>
+                  <Typography sx={{ fontSize: 10 }} color="text.secondary">
+                    {updatedDate.toDateString()}
+                  </Typography>
+                  </Stack>
+                  
+                  
+                </Stack>
+              )
+            }
+          /> 
               <CardContent>
                 <Typography variant="body2">
                   {description || 'No Description'}
