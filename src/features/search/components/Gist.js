@@ -186,7 +186,6 @@ export default function Gist(props) {
       <Grid
         container
         spacing={0}
-        fixed
         sx={{ position: 'fixed', bottom: 0, left: 0, right: 0, height: 50, backgroundColor:"white", }} elevation={3}
         direction="row"
       >
