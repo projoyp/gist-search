@@ -17,7 +17,8 @@ export function SearchBar() {
     if (isInitialMount.current) {
       isInitialMount.current = false;
    } else {
-    dispatch(searchGistsAsync([query,1]));
+      if(query)
+        dispatch(searchGistsAsync([query,1]));
    }
   },[query,dispatch]);
 
