@@ -4,10 +4,10 @@ import { DebounceInput } from 'react-debounce-input'
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
+import GitHubIcon from '@mui/icons-material/GitHub';
 import {
   searchGistsAsync
 } from '../searchSlice';
-//import styles from './Counter.module.css';
 
 export function SearchBar() {
   const isInitialMount = useRef(true);
@@ -26,12 +26,13 @@ export function SearchBar() {
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
         <Toolbar>
+          <GitHubIcon sx={{ marginRight:3}}/>
           <DebounceInput
             className="search-bar"
             placeholder="Enter username to search..."
-            minLength={3}
             debounceTimeout={500}
             onChange={event => (setQuery(event.target.value))}
+            data-testid="search-bar"
           />
         </Toolbar>
       </AppBar>

@@ -2,7 +2,8 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { searchGists, fetchForks } from './searchAPI';
 
 const initialState = {
-  value: 0,
+  gists: null,
+  forks: null,
   status: 'idle',
 };
 

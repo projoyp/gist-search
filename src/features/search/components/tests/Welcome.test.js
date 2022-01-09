@@ -1,14 +1,10 @@
 import React from 'react';
 import { render } from '@testing-library/react';
-import { Provider } from 'react-redux';
-import { store } from './app/store';
-import App from './App';
+import {Welcome} from '../Welcome';
 
 test('renders welcome page', () => {
   const { getByText } = render(
-    <Provider store={store}>
-      <App />
-    </Provider>
+      <Welcome />,
   );
 
   expect(getByText(/welcome/i)).toBeInTheDocument();
