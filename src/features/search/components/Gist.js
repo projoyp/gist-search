@@ -189,14 +189,14 @@ export default function Gist(props) {
         sx={{ position: 'fixed', bottom: 0, left: 0, right: 0, height: 50, backgroundColor:"white", }} elevation={3}
         direction="row"
       >
-        <Grid container  xs={6} alignItems="left" >
+        <Grid container alignItems="left" >
           <IconButton 
             disabled ={currentPage===1}
             onClick={()=>setCurrentPage(currentPage-1)}>
             <ArrowBackIosIcon />
           </IconButton>
         </Grid>
-        <Grid container  xs={6} justifyContent="flex-end">
+        <Grid container justifyContent="flex-end">
           <IconButton 
             disabled ={gists && gists.length < 30}
             onClick={()=>setCurrentPage(currentPage+1)}>
