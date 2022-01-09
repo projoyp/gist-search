@@ -5,8 +5,6 @@ import Chip from '@mui/material/Chip';
 import Avatar from '@mui/material/Avatar';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
-import BottomNavigation from '@mui/material/BottomNavigation';
-import BottomNavigationAction from '@mui/material/BottomNavigationAction';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardHeader from '@mui/material/CardHeader';
@@ -24,6 +22,7 @@ import {
 import {Fork} from './Fork';
 import NoRecords from './NoRecords';
 import Spinner from './Spinner';
+import IconButton from '@mui/material/IconButton';
 
 function GistChild(props) {
   const { row } = props;
@@ -176,6 +175,7 @@ export default function Gist(props) {
         direction="column"
         alignItems="center"
         justify="center"
+        sx={{ marginBottom: 6 }}
       >
         <Grid item >
           {gists && gists.map((row) => (
@@ -183,24 +183,28 @@ export default function Gist(props) {
                   ))}
         </Grid>
       </Grid>
-      <BottomNavigation
-        showLabels
-        onChange={(event, value) => {
-          switch(value){
-            case 0:
-              setCurrentPage(currentPage-1);
-              break;
-            case 1:
-              setCurrentPage(currentPage+1);
-              break;
-            default:
-              break;
-          }
-        }}
+      <Grid
+        container
+        spacing={0}
+        fixed
+        sx={{ position: 'fixed', bottom: 0, left: 0, right: 0, height: 50, backgroundColor:"white", }} elevation={3}
+        direction="row"
       >
-        {currentPage!==1 && <BottomNavigationAction disabled={currentPage===1} label="Back" icon={<ArrowBackIosIcon />} /> }
-        <BottomNavigationAction disabled={gists && gists.length < 30} label="Next" icon={<ArrowForwardIosIcon />} />
-      </BottomNavigation>
+        <Grid container  xs={6} alignItems="left" >
+          <IconButton 
+            disabled ={currentPage===1}
+            onClick={()=>setCurrentPage(currentPage-1)}>
+            <ArrowBackIosIcon />
+          </IconButton>
+        </Grid>
+        <Grid container  xs={6} justifyContent="flex-end">
+          <IconButton 
+            disabled ={gists && gists.length < 30}
+            onClick={()=>setCurrentPage(currentPage+1)}>
+            <ArrowForwardIosIcon />
+          </IconButton>
+        </Grid>
+      </Grid>
     </Paper>
   );
 }
