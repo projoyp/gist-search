@@ -12,6 +12,7 @@ import NoRecords from './NoRecords';
 import DialogTitle from '@mui/material/DialogTitle';
 import Dialog from '@mui/material/Dialog';
 import { useSelector, useDispatch } from 'react-redux';
+import { isBrowser } from 'react-device-detect';
 import {
   selectStatus,
   selectErrors,
@@ -51,7 +52,10 @@ import {
                   <TableRow>
                     <TableCell>Created At</TableCell>
                     <TableCell>User</TableCell>
-                    <TableCell>Description</TableCell>
+                    {
+                      isBrowser &&
+                      <TableCell>Description</TableCell>
+                    }
                     <TableCell>URL</TableCell>
                   </TableRow>
                 </TableHead>
@@ -61,9 +65,14 @@ import {
                       <TableCell component="th" scope="row">
                         {(new Date(fork.created_at).toDateString())}
                       </TableCell>
-                      <TableCell><Avatar alt={fork.owner.login.slice(0,1)} src={fork.owner.avatar_url} />
-          {fork.owner.login}</TableCell>
-                      <TableCell align="right">{fork.description}</TableCell>
+                      <TableCell>
+                        <Avatar alt={fork.owner.login.slice(0,1)} src={fork.owner.avatar_url} />
+                        {fork.owner.login}
+                      </TableCell>
+                      {
+                        isBrowser &&
+                        <TableCell align="right">{fork.description}</TableCell>
+                      }
                       <TableCell align="right">
                         <IconButton aria-label={fork.html_url} onClick={() => window.open(fork.html_url, "_blank")}>
                           <LaunchIcon />

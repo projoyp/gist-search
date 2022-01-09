@@ -28,7 +28,7 @@ export function SearchBar() {
         <Toolbar>
           <DebounceInput
             className="search-bar"
-            placeholder="Enter username to search public gists..."
+            placeholder="Enter username to search..."
             minLength={3}
             debounceTimeout={500}
             onChange={event => (setQuery(event.target.value))}

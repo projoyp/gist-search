@@ -16,6 +16,7 @@ import UnfoldMoreIcon from '@mui/icons-material/UnfoldMore';
 import BottomNavigation from '@mui/material/BottomNavigation';
 import BottomNavigationAction from '@mui/material/BottomNavigationAction';
 import { useDispatch, useSelector } from 'react-redux';
+import { isBrowser } from 'react-device-detect';
 import {
   selectStatus,
   searchGistsAsync,
@@ -42,8 +43,7 @@ function Row(props) {
       <TableRow sx={{ '& > *': { borderBottom: 'unset' } }}>
       
         <TableCell component="th" scope="row" sx={{ width: '15%' }}>
-         
-          <Grid container spacing={1}>
+          <Grid container spacing={4}>
            <Grid item xs={4}>
             <Avatar alt={row.owner.login.slice(0,1)} src={row.owner.avatar_url} sx={{ width: 24, height: 24 }} />
           </Grid>
@@ -52,9 +52,12 @@ function Row(props) {
           </Grid> 
           </Grid>
         </TableCell>
-        <TableCell sx={{ width: '40%' }} style={{whiteSpace: 'normal', wordWrap: 'break-word'}}>
-          {description}
-        </TableCell>
+        { 
+          isBrowser &&
+          <TableCell sx={{ width: '40%' }} style={{whiteSpace: 'normal', wordWrap: 'break-word'}}>
+            {description}
+          </TableCell>
+        }
         <TableCell sx={{ width: '20%' }}> 
           {languages.map((lang)=>{
             return <Chip key={lang} label={lang} variant="outlined" />
@@ -108,7 +111,9 @@ export default function Gist(props) {
           <TableHead>
             <TableRow>
               <TableCell sx={{ width: '15%' }}> Owner</TableCell>
-              <TableCell sx={{ width: '40%' }} style={{whiteSpace: 'normal', wordWrap: 'break-word'}}> Description</TableCell>
+              {
+                isBrowser && <TableCell sx={{ width: '40%' }} style={{whiteSpace: 'normal', wordWrap: 'break-word'}}> Description</TableCell>
+              }
               <TableCell sx={{ width: '20%' }}> Tags</TableCell>
               <TableCell sx={{ width: '15%' }}> Created At</TableCell>
               <TableCell sx={{ width: '10%' }}></TableCell>
