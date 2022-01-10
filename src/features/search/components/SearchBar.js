@@ -5,6 +5,8 @@ import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
+import Snackbar from '@mui/material/Snackbar';
+import Alert from '@mui/material/Alert';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import SearchIcon from '@mui/icons-material/Search';
 import {
@@ -17,6 +19,23 @@ export function SearchBar() {
   const isInitialMount = useRef(true);
   const dispatch = useDispatch();
   const [query, setQuery ]=  useState();
+  const [open, setOpen] = React.useState(false);
+
+  const handleSearchClick = () => {
+    if(!query){
+      setOpen(true);
+      return;
+    }
+    dispatch(searchGistsAsync([query,1]))
+  };
+
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    setOpen(false);
+  };
   useEffect(()=>{
     if (isInitialMount.current) {
       isInitialMount.current = false;
@@ -46,9 +65,14 @@ export function SearchBar() {
           />
           <IconButton 
             color="secondary"
-            onClick={()=>dispatch(searchGistsAsync([query,1]))}>
+            onClick={()=>handleSearchClick()}>
             <SearchIcon />
           </IconButton>
+          <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+        <Alert onClose={handleClose} severity="info" sx={{ width: '100%' }}>
+          Username is mandatory.
+        </Alert>
+      </Snackbar>
         </Toolbar>
       </AppBar>
     </Box>

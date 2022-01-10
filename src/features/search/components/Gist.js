@@ -28,7 +28,6 @@ import IconButton from '@mui/material/IconButton';
 function GistChild(props) {
   const { row } = props;
   const [openForks, setOpenForks] = React.useState(false);
-  const [openFileList, setOpenFileList] = React.useState(false);
   const [openCommentList, setOpenCommentList] = React.useState(false);
   const createdDate = row.created_at ? new Date(row.created_at) : '';
   const updatedDate = row.updated_at ? new Date(row.updated_at) : '';
@@ -68,7 +67,7 @@ function GistChild(props) {
                 }
                 </Stack>
               </Link>
-              <Link component="button" underline="none" onClick={() => setOpenFileList(!openFileList)}>
+              <Link component="button" underline="none" onClick={() => window.open(row.html_url, "_blank")}>
                 <Stack direction="row" spacing={1}>
                 <Typography sx={{ fontSize: 10 }} color="text.secondary">
                 {languages.length}
@@ -84,7 +83,7 @@ function GistChild(props) {
                 }
                 </Stack>
               </Link>
-              <Link component="button" underline="none" onClick={() => setOpenForks(!openFileList)}>
+              <Link component="button" underline="none" onClick={() => setOpenForks(!openForks)}>
                 <Stack direction="row">
                 <RepoForkedIcon size={16} />
                 {
