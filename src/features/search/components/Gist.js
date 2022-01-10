@@ -33,7 +33,7 @@ function GistChild(props) {
   const updatedDate = row.updated_at ? new Date(row.updated_at) : '';
   const description = row.description && row.description.indexOf(" ") === -1 && row.description.length > 30 ? row.description.slice(0,30)+"..." : row.description;
   const languages = []
-  const fileCount=0;
+  let fileCount=0;
   for (const index in row.files) {
     fileCount++;
     let lang = row.files[index].language;
