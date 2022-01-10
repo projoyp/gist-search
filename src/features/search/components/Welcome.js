@@ -23,16 +23,16 @@ export function Welcome() {
         alignItems="center"
         justify="center">
       <Div>
-      <Typography paragraph className={styles.titleWord1} >
+      <Typography paragraph className={styles.titleWord} >
       Hi, I'm Projoy
       </Typography>
-      <Typography paragraph className={styles.titleWord2}>
+      <Typography paragraph className={styles.titleWord}>
         Welcome to gist-search application.
       </Typography>
-      <Typography paragraph className={styles.titleWord3}>
+      <Typography paragraph className={styles.titleWord}>
         You can search by username to view all their public gists.
       </Typography>
-      <Typography paragraph className={styles.titleWord4}>
+      <Typography paragraph className={styles.titleWord}>
         Happy Searching !!! 
       </Typography>
      </Div>
