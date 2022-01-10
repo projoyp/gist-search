@@ -33,8 +33,9 @@ function GistChild(props) {
   const updatedDate = row.updated_at ? new Date(row.updated_at) : '';
   const description = row.description && row.description.indexOf(" ") === -1 && row.description.length > 30 ? row.description.slice(0,30)+"..." : row.description;
   const languages = []
-
+  const fileCount=0;
   for (const index in row.files) {
+    fileCount++;
     let lang = row.files[index].language;
     if(lang && !languages.includes(lang))
       languages.push(row.files[index].language)
@@ -70,7 +71,7 @@ function GistChild(props) {
               <Link component="button" underline="none" onClick={() => window.open(row.html_url, "_blank")}>
                 <Stack direction="row" spacing={1}>
                 <Typography sx={{ fontSize: 10 }} color="text.secondary">
-                {languages.length}
+                {fileCount}
                 </Typography>
                 <Typography sx={{ fontSize: 10 }} color="text.secondary">
                 <FileCodeIcon size={16} />
