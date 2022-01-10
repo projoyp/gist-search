@@ -1,9 +1,10 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { searchGists, fetchForks } from './searchAPI';
+import { searchGists, fetchForks, fetchComments } from './searchAPI';
 
 const initialState = {
   gists: null,
   forks: null,
+  comments: null,
   status: 'idle',
 };
 
@@ -25,6 +26,15 @@ export const fetchForksAsync = createAsyncThunk(
   }
 );
 
+export const fetchCommentsAsync = createAsyncThunk(
+  '{id}/comments',
+  async (id) => {
+    const response = await fetchComments(id);
+    // The value we return becomes the `fulfilled` action payload
+    return response.data;
+  }
+);
+
 export const searchSlice = createSlice({
   name: 'search',
   initialState,
@@ -34,6 +44,9 @@ export const searchSlice = createSlice({
     },
     clearForksList(state) {
       state.forks = null
+    },
+    clearCommentList(state) {
+      state.comments = null
     },
     clearErrorList(state) {
       state.error = ''
@@ -64,13 +77,25 @@ export const searchSlice = createSlice({
       .addCase(fetchForksAsync.rejected, (state, action) => {
         state.status = 'idle';
         state.error = action.error.message;
+      })
+      .addCase(fetchCommentsAsync.pending, (state) => {
+        state.status = 'loading-comments';
+      })
+      .addCase(fetchCommentsAsync.fulfilled, (state, action) => {
+        state.status = 'idle';
+        state.comments = [...action.payload.data];
+      })
+      .addCase(fetchCommentsAsync.rejected, (state, action) => {
+        state.status = 'idle';
+        state.error = action.error.message;
       });
   },
 });
 
-export const { clearGistsList, clearForksList, clearErrorList } = searchSlice.actions
+export const { clearGistsList, clearForksList, clearErrorList, clearCommentList } = searchSlice.actions
 export const selectGists = (state) => state.search.gists;
 export const selectForks = (state) => state.search.forks;
+export const selectComments = (state) => state.search.comments;
 export const selectErrors = (state) => state.search.error;
 export const selectStatus = (state) => state.search.status;
 

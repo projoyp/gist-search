@@ -1,13 +1,13 @@
 import React, { useEffect } from "react";
 import Spinner from './Spinner';
-import IconButton from '@mui/material/IconButton';
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
 import Avatar from '@mui/material/Avatar';
 import LaunchIcon from '@mui/icons-material/Launch'
+import Card from '@mui/material/Card';
+import CardHeader from '@mui/material/CardHeader';
+import Typography from '@mui/material/Typography';
+import Link from '@mui/material/Link';
+import CardContent from '@mui/material/CardContent';
+import Stack from '@mui/material/Stack';
 import NoRecords from './NoRecords';
 import DialogTitle from '@mui/material/DialogTitle';
 import Dialog from '@mui/material/Dialog';
@@ -47,42 +47,59 @@ import {
       maxWidth="sm" >
       <DialogTitle>Forks</DialogTitle>
         {apiStatus === 'loading-forks' && <Spinner/>}
-          {lastThreeForks && lastThreeForks.length > 0 ? (<Table size="small" aria-label="purchases">
-                <TableHead>
-                  <TableRow>
-                    <TableCell>Created At</TableCell>
-                    <TableCell>User</TableCell>
-                    {
-                      isBrowser &&
-                      <TableCell>Description</TableCell>
-                    }
-                    <TableCell>URL</TableCell>
-                  </TableRow>
-                </TableHead>
-                <TableBody>
-                  {lastThreeForks && lastThreeForks.map((fork) => (
-                    <TableRow key={fork.id}>
-                      <TableCell component="th" scope="row">
-                        {(new Date(fork.created_at).toDateString())}
-                      </TableCell>
-                      <TableCell>
-                        <Avatar alt={fork.owner.login.slice(0,1)} src={fork.owner.avatar_url} />
-                        {fork.owner.login}
-                      </TableCell>
-                      {
-                        isBrowser &&
-                        <TableCell align="right">{fork.description}</TableCell>
-                      }
-                      <TableCell align="right">
-                        <IconButton aria-label={fork.html_url} onClick={() => window.open(fork.html_url, "_blank")}>
-                          <LaunchIcon />
-                        </IconButton>
-                      </TableCell>
-                    </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
-            ) : apiStatus !== "loading-forks" && (<NoRecords message="No forks for this gist"/>)}
+          {lastThreeForks && lastThreeForks.length > 0 ? 
+          
+               lastThreeForks.map((fork) => (
+              <Card spacing={0} >
+              <CardHeader
+            avatar={
+              <Link href={fork.owner.html_url}>
+                <Avatar alt={fork.owner.login.slice(0,1)} src={fork.owner.avatar_url}  />
+              </Link>
+            }
+            action={
+              <Stack direction="row" spacing={2}>
+                <Link component="button" underline="none" onClick={() => window.open(fork.html_url, "_blank")}>
+                  <Stack direction="row" spacing={1}>
+                  <Typography sx={{ fontSize: 10 }} color="text.secondary">
+                    <LaunchIcon />
+                  </Typography>
+                  </Stack>
+                </Link>
+                </Stack>
+            }
+              title={fork.owner.login}
+              subheader={
+                (
+                  <Stack direction= {"row" } spacing={1}>
+                    <Stack direction= { isBrowser ? "row" : "column" }>
+                    <Typography sx={{ fontSize: 10 }} color="text.secondary" gutterBottom>
+                      Created:
+                    </Typography>
+                    <Typography sx={{ fontSize: 10 }} color="text.secondary">
+                      {(new Date(fork.created_at)).toDateString()}
+                    </Typography>
+                    </Stack>
+                    <Stack direction= { isBrowser ? "row" : "column" }>
+                    <Typography sx={{ fontSize: 10 }} color="text.secondary">
+                      Last updated:
+                    </Typography>
+                    <Typography sx={{ fontSize: 10 }} color="text.secondary">
+                      {(new Date(fork.updated_at)).toDateString()}
+                    </Typography>
+                    </Stack>
+                  </Stack>
+                )
+              }
+            /> 
+            <CardContent>
+                  <Typography variant="body2">
+                  {fork.description}
+                  </Typography>
+                </CardContent>
+            </Card>
+            
+            ) ): apiStatus !== "loading-forks" && (<NoRecords message="No forks for this gist"/>)}
       </Dialog>
     )
   }

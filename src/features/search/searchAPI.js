@@ -27,3 +27,15 @@ export async function fetchForks(id = '') {
     throw error;
   }
 }
+
+export async function fetchComments(id = '') {
+  try{
+    var data = await octokit.request(`GET /gists/${id}/comments`)
+    return new Promise((resolve) =>
+      resolve({ data: data })
+    );
+  }
+  catch(error){
+    throw error;
+  }
+}

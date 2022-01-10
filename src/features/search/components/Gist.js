@@ -20,6 +20,7 @@ import {
   searchGistsAsync,
 } from '../searchSlice';
 import {Fork} from './Fork';
+import {Comments} from './Comments';
 import NoRecords from './NoRecords';
 import Spinner from './Spinner';
 import IconButton from '@mui/material/IconButton';
@@ -28,6 +29,7 @@ function GistChild(props) {
   const { row } = props;
   const [openForks, setOpenForks] = React.useState(false);
   const [openFileList, setOpenFileList] = React.useState(false);
+  const [openCommentList, setOpenCommentList] = React.useState(false);
   const createdDate = row.created_at ? new Date(row.created_at) : '';
   const updatedDate = row.updated_at ? new Date(row.updated_at) : '';
   const description = row.description && row.description.indexOf(" ") === -1 && row.description.length > 30 ? row.description.slice(0,30)+"..." : row.description;
@@ -50,7 +52,7 @@ function GistChild(props) {
           }
           action={
             <Stack direction="row" spacing={2}>
-              <Link component="button" underline="none" onClick={() => setOpenFileList(!openFileList)}>
+              <Link component="button" underline="none" disable = {row.comments===0} onClick={() => {if(row.comments)setOpenCommentList(!openCommentList)}}>
                 <Stack direction="row" spacing={1}>
                 <Typography sx={{ fontSize: 10 }} color="text.secondary">
                 {row.comments} 
@@ -139,6 +141,7 @@ function GistChild(props) {
               </CardActions>
           </Card>
           {openForks && (<Fork open={openForks} onClose={setOpenForks} gistId={row.id}/>)}
+          {openCommentList && (<Comments open={openCommentList} onClose={setOpenCommentList} gistId={row.id}/>)}
     </React.Fragment>
   );
 }
