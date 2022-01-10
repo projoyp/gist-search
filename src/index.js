@@ -14,10 +14,10 @@ const theme = createTheme({
       main: '#24292e',
       // dark: will be calculated from palette.primary.main,
       // contrastText: will be calculated to contrast with palette.primary.main
+      contrastText: '#fff',
     },
     secondary: {
-      light: '#0066ff',
-      main: '#121212',
+      main: '#fff',
       // dark: will be calculated from palette.secondary.main,
       contrastText: '#ffcc00',
     },

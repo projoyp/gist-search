@@ -4,7 +4,9 @@ import { DebounceInput } from 'react-debounce-input'
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
+import IconButton from '@mui/material/IconButton';
 import GitHubIcon from '@mui/icons-material/GitHub';
+import SearchIcon from '@mui/icons-material/Search';
 import {
   searchGistsAsync
 } from '../searchSlice';
@@ -34,6 +36,11 @@ export function SearchBar() {
             onChange={event => (setQuery(event.target.value))}
             data-testid="search-bar"
           />
+          <IconButton 
+            color="secondary"
+            onClick={()=>dispatch(searchGistsAsync([query,1]))}>
+            <SearchIcon />
+          </IconButton>
         </Toolbar>
       </AppBar>
     </Box>
