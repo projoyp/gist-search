@@ -8,6 +8,8 @@ import IconButton from '@mui/material/IconButton';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import SearchIcon from '@mui/icons-material/Search';
 import {
+  clearErrorList,
+  clearGistsList,
   searchGistsAsync
 } from '../searchSlice';
 
@@ -19,8 +21,10 @@ export function SearchBar() {
     if (isInitialMount.current) {
       isInitialMount.current = false;
    } else {
-      if(query)
+      if(query){
+        dispatch(clearErrorList());
         dispatch(searchGistsAsync([query,1]));
+      }
    }
   },[query,dispatch]);
 
@@ -28,7 +32,11 @@ export function SearchBar() {
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
         <Toolbar>
-          <GitHubIcon sx={{ marginRight:3}}/>
+        <IconButton 
+            color="secondary"
+            onClick={()=>{dispatch(clearErrorList());dispatch(clearGistsList());}}>
+            <GitHubIcon sx={{ marginRight:3}}/>
+          </IconButton>
           <DebounceInput
             className="search-bar"
             placeholder="Enter username to search..."

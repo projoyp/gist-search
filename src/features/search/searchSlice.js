@@ -29,8 +29,14 @@ export const searchSlice = createSlice({
   name: 'search',
   initialState,
   reducers: {
+    clearGistsList(state) {
+      state.gists = null
+    },
     clearForksList(state) {
-      state.forks = []
+      state.forks = null
+    },
+    clearErrorList(state) {
+      state.error = ''
     },
   },
   // The `extraReducers` field lets the slice handle actions defined elsewhere,
@@ -46,7 +52,7 @@ export const searchSlice = createSlice({
       })
       .addCase(searchGistsAsync.rejected, (state, action) => {
         state.status = 'idle';
-        state.error = action.error.message;
+        state.error = action.error.message === 'Not Found' ? 'User not found. Try some other username.' : action.error.message;
       })
       .addCase(fetchForksAsync.pending, (state) => {
         state.status = 'loading-forks';
@@ -62,7 +68,7 @@ export const searchSlice = createSlice({
   },
 });
 
-export const { clearForksList } = searchSlice.actions
+export const { clearGistsList, clearForksList, clearErrorList } = searchSlice.actions
 export const selectGists = (state) => state.search.gists;
 export const selectForks = (state) => state.search.forks;
 export const selectErrors = (state) => state.search.error;

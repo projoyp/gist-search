@@ -30,7 +30,7 @@ export function Welcome() {
         Welcome to gist-search application.
       </Typography>
       <Typography paragraph className={styles.titleWord3}>
-        You can search by username to view all their public gists on github
+        You can search by username to view all their public gists.
       </Typography>
       <Typography paragraph className={styles.titleWord4}>
         Happy Searching !!! 
