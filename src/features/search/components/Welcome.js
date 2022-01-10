@@ -1,14 +1,42 @@
 import React from 'react';
 import { styled } from '@mui/material/styles';
+import styles from '../style.module.css';
+import Typography from '@mui/material/Typography';
+import Grid from '@mui/material/Grid';
 
 const Div = styled('div')(({ theme }) => ({
-  padding: theme.spacing(1),
+  paddingTop: theme.spacing(20),
+  paddingBottom: theme.spacing(20),
+  paddingLeft: theme.spacing(5),
+  paddingRight: theme.spacing(5),
+  textAlign: "center",
+  height:"100",
+  alignItems: "center",
 }));
 
 export function Welcome() {
   return (
-    <Div>
-      Welcome to gist-search. You can type any username in the text box to view all their public gists on github
-    </Div>
+    <Grid
+    container
+        spacing={0}
+        direction="column"
+        alignItems="center"
+        justify="center">
+      <Div>
+      <Typography paragraph className={styles.titleWord1} >
+      Hi, I'm Projoy
+      </Typography>
+      <Typography paragraph className={styles.titleWord2}>
+        Welcome to gist-search application.
+      </Typography>
+      <Typography paragraph className={styles.titleWord3}>
+        You can search by username to view all their public gists on github
+      </Typography>
+      <Typography paragraph className={styles.titleWord4}>
+        Happy Searching !!! 
+      </Typography>
+     </Div>
+    </Grid>
+    
   );
 }

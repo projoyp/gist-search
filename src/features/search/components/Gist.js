@@ -116,8 +116,6 @@ function GistChild(props) {
                     {updatedDate.toDateString()}
                   </Typography>
                   </Stack>
-                  
-                  
                 </Stack>
               )
             }
