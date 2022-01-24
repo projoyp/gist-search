@@ -12,7 +12,6 @@ import NoRecords from './NoRecords';
 import DialogTitle from '@mui/material/DialogTitle';
 import Dialog from '@mui/material/Dialog';
 import { useSelector, useDispatch } from 'react-redux';
-import { isBrowser } from 'react-device-detect';
 import {
   selectStatus,
   selectErrors,
@@ -50,7 +49,7 @@ import {
           {lastThreeForks && lastThreeForks.length > 0 ? 
           
                lastThreeForks.map((fork) => (
-              <Card spacing={0} >
+              <Card spacing={0} key={fork.id}>
               <CardHeader
             avatar={
               <Link href={fork.owner.html_url}>
@@ -61,18 +60,21 @@ import {
               <Stack direction="row" spacing={2}>
                 <Link component="button" underline="none" onClick={() => window.open(fork.html_url, "_blank")}>
                   <Stack direction="row" spacing={1}>
-                  <Typography sx={{ fontSize: 10 }} color="text.secondary">
+                  <Typography sx={{ fontSize: 10 }} color="#0072E5">
                     <LaunchIcon />
                   </Typography>
                   </Stack>
                 </Link>
                 </Stack>
             }
-              title={fork.owner.login}
-              subheader={
-                (
-                  <Stack direction= {"row" } spacing={1}>
-                    <Stack direction= { isBrowser ? "row" : "column" }>
+              title={
+                <Link underline="none" color="#0072E5" href={fork.owner.html_url}>
+                {fork.owner.login}
+              </Link>}
+            /> 
+            <CardContent className="dateTimeDiv">
+            <Stack direction= {"row" } spacing={1}>
+                    <Stack direction= "row">
                     <Typography sx={{ fontSize: 10 }} color="text.secondary" gutterBottom>
                       Created:
                     </Typography>
@@ -80,7 +82,7 @@ import {
                       {(new Date(fork.created_at)).toDateString()}
                     </Typography>
                     </Stack>
-                    <Stack direction= { isBrowser ? "row" : "column" }>
+                    <Stack direction= "row">
                     <Typography sx={{ fontSize: 10 }} color="text.secondary">
                       Last updated:
                     </Typography>
@@ -89,12 +91,10 @@ import {
                     </Typography>
                     </Stack>
                   </Stack>
-                )
-              }
-            /> 
+                </CardContent>
             <CardContent>
                   <Typography variant="body2">
-                  {fork.description}
+                  {fork.description || "No description"}
                   </Typography>
                 </CardContent>
             </Card>

@@ -43,7 +43,7 @@ function GistChild(props) {
 
   return (
     <React.Fragment>
-      <Card sx={{ minWidth:isBrowser ? 750 : 250, maxWidth: 750, marginBottom: 1}} >
+      <Card className="gist-card"sx={{ minWidth:isBrowser ? 750 : "100vw", maxWidth: isBrowser ? 750 : "100vw", marginBottom: 1}} >
         <CardHeader
           avatar={
             <Link href={row.owner.html_url}>
@@ -52,17 +52,17 @@ function GistChild(props) {
           }
           action={
             <Stack direction="row" spacing={2}>
-              <Link component="button" underline="none" disable = {row.comments===0} onClick={() => {if(row.comments)setOpenCommentList(!openCommentList)}}>
+              <Link component="button" underline="none" disabled = {row.comments===0} onClick={() => {if(row.comments)setOpenCommentList(!openCommentList)}}>
                 <Stack direction="row" spacing={1}>
-                <Typography sx={{ fontSize: 10 }} color="text.secondary">
+                <Typography sx={{ fontSize: 10 }} color="#0072E5">
                 {row.comments} 
                 </Typography>
-                <Typography sx={{ fontSize: 10 }} color="text.secondary">
+                <Typography sx={{ fontSize: 10 }} color="#0072E5">
                   <CommentIcon size={16} />
                 </Typography>
                 {
                   isBrowser && 
-                  <Typography sx={{ fontSize: 10 }} color="text.secondary">
+                  <Typography sx={{ fontSize: 10 }} color="#0072E5">
                   Comments
                   </Typography>
                 }
@@ -70,15 +70,15 @@ function GistChild(props) {
               </Link>
               <Link component="button" underline="none" onClick={() => window.open(row.html_url, "_blank")}>
                 <Stack direction="row" spacing={1}>
-                <Typography sx={{ fontSize: 10 }} color="text.secondary">
+                <Typography sx={{ fontSize: 10 }} color="#0072E5">
                 {fileCount}
                 </Typography>
-                <Typography sx={{ fontSize: 10 }} color="text.secondary">
+                <Typography sx={{ fontSize: 10 }} color="#0072E5">
                 <FileCodeIcon size={16} />
                 </Typography>
                 {
                   isBrowser && 
-                  <Typography sx={{ fontSize: 10 }} color="text.secondary">
+                  <Typography sx={{ fontSize: 10 }} color="#0072E5">
                   Files
                   </Typography>
                 }
@@ -86,10 +86,12 @@ function GistChild(props) {
               </Link>
               <Link component="button" underline="none" onClick={() => setOpenForks(!openForks)}>
                 <Stack direction="row">
-                <RepoForkedIcon size={16} />
+                <Typography sx={{ fontSize: 10 }} color="#0072E5">
+              <RepoForkedIcon size={16} />
+              </Typography>
                 {
                   isBrowser && 
-                  <Typography sx={{ fontSize: 10 }} color="text.secondary">
+                  <Typography sx={{ fontSize: 10 }} color="#0072E5">
                   Forks
                   </Typography>
                 }
@@ -98,11 +100,18 @@ function GistChild(props) {
               </Stack>
                     
             }
-            title={row.owner.login}
-            subheader={
-              (
+            title={
+              <Link underline="none" color="#0072E5" href={row.owner.html_url}>
+                {row.owner.login}
+              </Link>
+              
+            }
+            
+          /> 
+              <CardContent className="dateTimeDiv">
+                <Typography variant="div">
                 <Stack direction= {"row" } spacing={1}>
-                  <Stack direction= { isBrowser ? "row" : "column" }>
+                  <Stack direction= "row">
                   <Typography sx={{ fontSize: 10 }} color="text.secondary" gutterBottom>
                     Created:
                   </Typography>
@@ -110,7 +119,7 @@ function GistChild(props) {
                     {createdDate.toDateString()}
                   </Typography>
                   </Stack>
-                  <Stack direction= { isBrowser ? "row" : "column" }>
+                  <Stack direction= "row">
                   <Typography sx={{ fontSize: 10 }} color="text.secondary">
                     Last updated:
                   </Typography>
@@ -119,10 +128,10 @@ function GistChild(props) {
                   </Typography>
                   </Stack>
                 </Stack>
-              )
-            }
-          /> 
-              <CardContent>
+                </Typography>
+                </CardContent>
+                <CardContent>
+                  
                 <Typography variant="body2">
                   {description || 'No Description'}
                 </Typography>
@@ -134,7 +143,7 @@ function GistChild(props) {
                 spacing={2} >
                 {
                   languages.map((lang)=>{
-                    return <Chip key={lang} label={lang} variant="outlined" />
+                    return <Chip className="gist-lang-chip" key={lang} label={lang} variant="outlined" />
                   })
                 }
                 </Stack>

@@ -11,7 +11,6 @@ import DialogTitle from '@mui/material/DialogTitle';
 import { useSelector, useDispatch } from 'react-redux';
 import Spinner from './Spinner';
 import NoRecords from './NoRecords';
-import { isBrowser } from 'react-device-detect';
 import {
   selectStatus,
   selectErrors,
@@ -46,7 +45,7 @@ export function Comments(props) {
         {apiStatus === 'loading-forks' && <Spinner/>}
         {
           comments && comments.map((comment)=>(
-            <Card spacing={0} >
+            <Card spacing={0} key={comment.id}>
             <CardHeader
           avatar={
             <Link href={comment.user.html_url}>
@@ -54,11 +53,15 @@ export function Comments(props) {
             </Link>
           }
           
-            title={comment.user.login}
-            subheader={
-              (
-                <Stack direction= {"row" } spacing={1}>
-                  <Stack direction= { isBrowser ? "row" : "column" }>
+            title={
+              <Link underline="none" color="#0072E5" href={comment.user.html_url}>
+                {comment.user.login}
+              </Link>}
+            
+          /> 
+          <CardContent className="dateTimeDiv">
+          <Stack direction= {"row" } spacing={1}>
+                  <Stack direction= "row">
                   <Typography sx={{ fontSize: 10 }} color="text.secondary" gutterBottom>
                     Created:
                   </Typography>
@@ -66,7 +69,7 @@ export function Comments(props) {
                     {(new Date(comment.created_at)).toDateString()}
                   </Typography>
                   </Stack>
-                  <Stack direction= { isBrowser ? "row" : "column" }>
+                  <Stack direction= "row">
                   <Typography sx={{ fontSize: 10 }} color="text.secondary">
                     Last updated:
                   </Typography>
@@ -75,9 +78,7 @@ export function Comments(props) {
                   </Typography>
                   </Stack>
                 </Stack>
-              )
-            }
-          /> 
+                </CardContent>
           <CardContent>
                 <Typography variant="body2">
                 {comment.body}
